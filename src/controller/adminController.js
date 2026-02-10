@@ -1,10 +1,8 @@
-const {signUpUser} = require('../service/userService');
 
-async function userController(req,res){
-    console.log("Full Request Body:", req.body);
-    const userDetail = req.body;
+async function adminPromotionController(req,res){
+    const userDetail = req.params;
     try {
-        const response = await signUpUser(userDetail);
+        const response = await promoteToAdmin(userDetail.userId);
         console.log(response)
         return res.status(201).json({
             success : true,

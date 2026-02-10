@@ -32,12 +32,13 @@ const userSchema = new mongoose.Schema({
         enum: ['USER', 'ADMIN'],
         default: 'USER'
     },
-    currentRank : {
-        type : Number,
-        uniqui : true,
-        sparse : true
-    },totalTeasConsumed: { type: Number, default: 0 },
-    isVerified: { type: Boolean, default: false }
+    totalTeasConsumed: { type: Number, default: 0 },
+    isVerified: { type: Boolean, default: false },
+    currentRank: { type: Number, default: null }, // not unique
+    prizeBalance: { type: Number, default: 0 },
+    isEligibleForWithdrawal: { type: Boolean, default: false },
+    lastRankChangeDate: {type: Date},
+    referalCode: {type: String}
  
 }, {
     timestamps : true

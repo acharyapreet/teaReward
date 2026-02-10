@@ -29,7 +29,10 @@ const vendorSchema = new mongoose.Schema({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },isActive : {
         type : Boolean
-    }
+    },
+    milestonesReached: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Milestone' }],
+    totalEarnings: { type: Number, default: 0 },
+    isVerified: { type: Boolean, default: false }
 },{
     timestamps : true
 });

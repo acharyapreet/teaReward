@@ -1,9 +1,11 @@
 const express = require('express');
+const multer = require('multer');
+const upload = multer(); // Initialize multer
 const { userController } = require('../controller/userController');
-const uploader = require('../middleware/multerMiddleware')
-const userRouter = express.Router()
+const userRouter = express.Router();
 
-userRouter.post('/',uploader.single('profileImage'),userController)
+// Use upload.none() to parse form-data text fields
+userRouter.post('/', upload.none(), userController);
 
 module.exports = userRouter;
 
