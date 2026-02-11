@@ -22,7 +22,7 @@ async function login(req, res){
             success : false,
             error : error,
             data : {},
-            message : error.reason
+            message: error.message || "Internal Server Error"
         })
     }
 }
