@@ -7,6 +7,7 @@ const authRouter = require('./route/authRoutes')
 const cookieParser = require('cookie-parser')
 const User = require('./schema/userSchema')
 const bcrypt = require('bcrypt')
+const adminRouter = require('./route/adminRoutes')
 //making express app
 const app = express()
 
@@ -17,7 +18,8 @@ app.use(cookieParser())
 
 //routing
 app.use('/users',userRouter)
-app.use('/auth',authRouter)
+app.use('/auth',authRouter);
+app.use('/admin', adminRouter);
 
 async function FirstAdmin() {
     try {
@@ -27,7 +29,7 @@ async function FirstAdmin() {
             const adminDetails = {
                 name : "System-Admin",
                 email : "abcdef@gmail.com",
-                password : await bcrypt.hash("hello123", 10),
+                password : "hello123",
                 phone : "9999999988",
                 role : "ADMIN",
                 isVerified : true

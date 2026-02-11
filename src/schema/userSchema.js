@@ -44,10 +44,19 @@ const userSchema = new mongoose.Schema({
     timestamps : true
 });
 
-userSchema.pre('save',async function(){
-    // here you can modify the user before saving it
-    const hashedPassword = await bcrypt.hash(this.password,10);
-    this.password = hashedPassword;
+userSchema.pre('save', async function (next) {
+    // Only hash the password if it has been modified (or is new)
+    if (!this.isModified('password')) {
+        return next();
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (error) {
+        return next(error);
+    }
 });
 
 const User = mongoose.model('User',userSchema);

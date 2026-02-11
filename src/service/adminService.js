@@ -13,7 +13,7 @@ async function promoteToAdmin(userId) {
         }
     }
     user.role = "ADMIN";
-    currentRank = null;
+    user.currentRank = null;
 
     await user.save();
     return user;
@@ -38,12 +38,13 @@ async function demotionToUser(userId) {
             message : "User is already not an Admin"
         }
     }
-    user.role == "USER";
+    user.role = "USER";
     
     //giving last rank to user
     const totalUser = await User.countDocuments({role : 'USER'});
     user.currentRank = totalUser + 1;
     
+    await user.save();
     return user;
 }catch(error){
     throw{
@@ -54,8 +55,8 @@ async function demotionToUser(userId) {
 //to show all admin
 async function showAdmins() {
     return await User.find({role : 'ADMIN'})
-    .select(-password)
-    .sort(createdAt);
+    .select("-password")
+    .sort("createdAt");
 }
 
 module.exports = {
